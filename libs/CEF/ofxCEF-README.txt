@@ -44,7 +44,7 @@ Go to your project's Configuration Properties/Build Events/Post-Build Event/Comm
 echo on
         dir
         robocopy "$(ProjectDir)../../../addons/ofxCef/libs/CEF/win32/$(Configuration)/" "$(ProjectDir)bin/" "*.dll" "*.bin" /njs /njh /np /fp /bytes
-        robocopy "$(ProjectDir)../../../addons/ofxCef/libs/CEF/win32/Resources/" "$(ProjectDir)bin/" "*.pak" /E /njs /njh /np /fp /bytes
+        robocopy "$(ProjectDir)../../../addons/ofxCef/libs/CEF/win32/Resources/" "$(ProjectDir)bin/" "*.pak" "*.dat" /E /njs /njh /np /fp /bytes
         robocopy "$(OF_ROOT)/export/vs/$(Platform_Actual)/" "$(ProjectDir)bin/" "*.dll" /njs /njh /np /fp /bytes
 if errorlevel 1 exit 0 else exit %errorlevel%
 
