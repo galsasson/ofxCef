@@ -44,7 +44,7 @@ Go to your project's Configuration Properties/Build Events/Post-Build Event/Comm
 echo on
         dir
         robocopy "$(ProjectDir)../../../addons/ofxCef/libs/CEF/win32/$(Configuration)/" "$(ProjectDir)bin/" "*.dll" "*.bin" /njs /njh /np /fp /bytes
-        robocopy "$(ProjectDir)../../../addons/ofxCef/libs/CEF/win32/Resources/" "$(ProjectDir)bin/" "*.pak" /njs /njh /np /fp /bytes
+        robocopy "$(ProjectDir)../../../addons/ofxCef/libs/CEF/win32/Resources/" "$(ProjectDir)bin/" "*.pak" /E /njs /njh /np /fp /bytes
         robocopy "$(OF_ROOT)/export/vs/$(Platform_Actual)/" "$(ProjectDir)bin/" "*.dll" /njs /njh /np /fp /bytes
 if errorlevel 1 exit 0 else exit %errorlevel%
 
@@ -55,5 +55,11 @@ Ensure libcef_dll_wrapper is a dependency of your own project (Project Name > Pr
 Ensure libcef_dll_wrapper is referenced by your project (Project Name > References > Add New Reference).
 You may have to change the Runtime Library of the libcef_dll_wrapper.vcxproj to Multi-threaded DLL (Configuration Properties/C/C++/Code Generation/Runtime Library).
 
+Depending on your version of CEF, you may have to add the compatibility.manifest to your solution. Copy the file
+ofxCef\example_ofxCEF\compatibility.manifest
+to the folder your solution is in.
+Go to your project's Configuration Properties/Manifest Tool/Input and Output/Additional Manifest Files, add:
+compatibility.manifest
+(The manifest is also coming with CEF and is at tests\cefclient\resources\win\)
 
 ###########################################################
