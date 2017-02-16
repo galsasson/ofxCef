@@ -62,6 +62,7 @@ ipch/
 *.scc
 *.iobj
 *.ipdb
+*.exp
 
 #Eclipse
 .metadata
