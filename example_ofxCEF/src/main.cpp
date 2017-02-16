@@ -23,6 +23,7 @@ int main(){
 	p->cefgui = cefgui;
     ofRunApp( p );
     
+	CefShutdown();
 }
 
 

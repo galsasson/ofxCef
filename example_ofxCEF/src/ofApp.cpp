@@ -36,7 +36,10 @@ void ofApp::exit(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    cefgui->update();
+	if (cefgui)
+	{
+		cefgui->update();
+	}
 
     if (ofGetFrameNum() == 1){
         string path = "file://" + ofToDataPath("html/index.html", true);
@@ -56,7 +59,10 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofBackground(255,0,255);
-    cefgui->draw();
+	if (cefgui)
+	{
+		cefgui->draw();
+	}
     
 //    ofPushMatrix();
 //    ofTranslate(ofPoint(ofGetMouseX(), ofGetMouseY()));
