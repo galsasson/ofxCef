@@ -5,6 +5,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_ofxCEF", "example_ofxCEF.vcxproj", "{7FD42DF7-442E-479A-BA76-D0022F99702A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0FD57D83-9065-4DF4-888D-5E6DE5BFB65C} = {0FD57D83-9065-4DF4-888D-5E6DE5BFB65C}
+		{A525C183-14BE-3989-85EB-A7C6C1C6E1F4} = {A525C183-14BE-3989-85EB-A7C6C1C6E1F4}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openframeworksLib", "..\..\..\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj", "{5837595D-ACA9-485C-8E76-729040CE4B0B}"
