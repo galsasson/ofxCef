@@ -122,7 +122,6 @@ void ofxCEF::setup(){
 
 //--------------------------------------------------------------
 ofxCEF::ofxCEF(){
-	renderHandler = nullptr;
 }
 
 //--------------------------------------------------------------
@@ -132,14 +131,8 @@ ofxCEF::~ofxCEF(){
 void ofxCEF::exit() {
 	//TODO Check if we need to do some calls to OnBeforeClose 
 	disableEvents();
-	if (renderHandler)
-	{
-		renderHandler->bIsShuttingDown = true;
-	}
-	if (browser)
-	{
-		browser->GetHost()->CloseBrowser(true);
-	}
+	renderHandler->bIsShuttingDown = true;
+    browser->GetHost()->CloseBrowser(true);
     
     // The following call to CefShutdown make the app crash on OS X. Still not working on Windows neither.
 	//CefShutdown();
