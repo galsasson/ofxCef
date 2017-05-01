@@ -1,4 +1,4 @@
-﻿#include "ofxCEFClientApp.h"
+#include "ofxCEFClientApp.h"
 
 #include "ofxCEFV8ExtensionHandler.h"
 

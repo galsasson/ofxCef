@@ -109,14 +109,15 @@ void ofxCEF::setup(){
 	settings.windowless_frame_rate = 60;
 
 	client = new ofxCEFBrowserClient(this, renderHandler);
-    browser = CefBrowserHost::CreateBrowserSync(windowInfo, client.get(), "", settings, NULL);
+    browser = CefBrowserHost::CreateBrowserSync(windowInfo, client.get(), "file://" + ofToDataPath("html/index.html", true), settings, NULL);
   
 #if defined(TARGET_OSX) 
 	if (renderHandler->bIsRetinaDisplay) {
         reshape(ofGetWidth()*2, ofGetHeight()*2);
     }
 #endif
-    
+    ofSleepMillis(10);
+    reshape(ofGetWidth(), ofGetHeight());
     enableEvents();    
 }
 
