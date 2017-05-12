@@ -27,7 +27,7 @@ public:
 //--------------------------------------------------------------
 class ofxCEF;
 
-ofxCEF* initofxCEF(int argc, char** argv);
+void initofxCEF(int argc, char** argv);
 
 //--------------------------------------------------------------
 class ofxCEF

@@ -51,7 +51,7 @@
 HINSTANCE hInst;   // current instance
 #endif
 
-ofxCEF* initofxCEF(int argc, char** argv){
+void initofxCEF(int argc, char** argv){
 #if defined(TARGET_OSX) 
 	CefMainArgs main_args(argc, argv);
 #elif defined(TARGET_WIN32)
@@ -60,10 +60,11 @@ ofxCEF* initofxCEF(int argc, char** argv){
 
 	CefRefPtr<ofxCEFClientApp> app(new ofxCEFClientApp);
 
-	int exit_code = CefExecuteProcess(main_args, app.get(), NULL);
-	if (exit_code >= 0) {
-		//return exit_code;
-	}
+    // Is this acutally needed for something?
+//	int exit_code = CefExecuteProcess(main_args, app.get(), NULL);
+//	if (exit_code >= 0) {
+//		//return exit_code;
+//	}
 
 	CefSettings settings;
 	settings.background_color = 0xFFFF00FF;
@@ -73,8 +74,9 @@ ofxCEF* initofxCEF(int argc, char** argv){
 	//settings.multi_threaded_message_loop = true;
 
 	CefInitialize(main_args, settings, app.get(), NULL);
-
-	return new ofxCEF();
+    
+    // No reason for this!?
+	//return new ofxCEF();
 }
 
 //--------------------------------------------------------------
