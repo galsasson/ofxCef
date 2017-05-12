@@ -40,7 +40,6 @@ public:
 	void exit();
 
     void load(const char*);
-    void update();
     void draw(void);
     void reshape(int, int);
     
@@ -61,6 +60,9 @@ public:
     void enableEvents();
     void disableEvents();
     
+    void enableResize();
+    void disableResize();
+    
     void executeJS(const char*);
 
     void notificationHandler();
@@ -80,7 +82,11 @@ public:
     CefRefPtr<ofxCEFBrowserClient> client;
 
     ofxCEFRenderHandler* renderHandler;
+    
+    bool fixedSize;
+    float width_, height_;
 
+    uint64_t browerCreation;
 };
 
 typedef void (ofxCEF::*notificationHandler)();

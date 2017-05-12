@@ -81,7 +81,7 @@ void initofxCEF(int argc, char** argv){
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
-void ofxCEF::setup(){
+void ofxCEF::setup(const string& url, int width, int height){
     
 	CefWindowInfo windowInfo;
 	renderHandler = new ofxCEFRenderHandler();
@@ -111,16 +111,36 @@ void ofxCEF::setup(){
 	settings.windowless_frame_rate = 60;
 
 	client = new ofxCEFBrowserClient(this, renderHandler);
-    browser = CefBrowserHost::CreateBrowserSync(windowInfo, client.get(), "file://" + ofToDataPath("html/index.html", true), settings, NULL);
-  
-#if defined(TARGET_OSX) 
-	if (renderHandler->bIsRetinaDisplay) {
-        reshape(ofGetWidth()*2, ofGetHeight()*2);
-    }
+    browser = CefBrowserHost::CreateBrowserSync(windowInfo, client.get(), url, settings, NULL);
+    
+    int reshapeSizeWidth, reshapeSizeHeight;
+    
+    if (width <= 0 && height <= 0) {
+        fixedSize = false;
+        reshapeSizeWidth = ofGetWidth();
+        reshapeSizeHeight = ofGetHeight();
+        
+#if defined(TARGET_OSX)
+        if (renderHandler->bIsRetinaDisplay) {
+            reshapeSizeWidth = ofGetWidth()*2;
+            reshapeSizeHeight = ofGetHeight()*2;
+        }
 #endif
-    ofSleepMillis(10);
-    reshape(ofGetWidth(), ofGetHeight());
-    enableEvents();    
+        enableResize();
+    }
+    else {
+        fixedSize = true;
+        width_ = width;
+        height_ = height;
+        reshapeSizeWidth = width_;
+        reshapeSizeHeight = height_;
+    }
+    
+    reshape(reshapeSizeWidth, reshapeSizeHeight);
+    
+    browerCreation = ofGetSystemTime();
+    
+    enableEvents();
 }
 
 //--------------------------------------------------------------
@@ -151,8 +171,6 @@ void ofxCEF::enableEvents(){
     
     ofAddListener(ofEvents().keyPressed, this, &ofxCEF::keyPressed);
     ofAddListener(ofEvents().keyReleased, this, &ofxCEF::keyReleased);
-    
-    ofAddListener(ofEvents().windowResized, this, &ofxCEF::windowResized);
 }
 
 //--------------------------------------------------------------
@@ -164,7 +182,15 @@ void ofxCEF::disableEvents(){
     
     ofRemoveListener(ofEvents().keyPressed, this, &ofxCEF::keyPressed);
     ofRemoveListener(ofEvents().keyReleased, this, &ofxCEF::keyReleased);
-    
+}
+
+//--------------------------------------------------------------
+void ofxCEF::enableResize(){
+    ofAddListener(ofEvents().windowResized, this, &ofxCEF::windowResized);
+}
+
+//--------------------------------------------------------------
+void ofxCEF::disableResize(){
     ofRemoveListener(ofEvents().windowResized, this, &ofxCEF::windowResized);
 }
 
@@ -213,18 +239,20 @@ void ofxCEF::draw(void){
     glEnable(GL_BLEND);
     
     //cout << ofGetWidth() << " - " << ofGetHeight() << endl;
-    float width = ofGetWidth();
-    float height = ofGetHeight();
-    
+    if (!fixedSize) {
+        width_ = ofGetWidth();
+        height_ = ofGetHeight();
+    }
+
     ofMesh temp;
     temp.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
     temp.addVertex( ofPoint(0,0) );
     temp.addTexCoord( ofPoint(0,0) );
-    temp.addVertex( ofPoint(width,0) );
+    temp.addVertex( ofPoint(width_,0) );
     temp.addTexCoord( ofPoint(1,0) );
-    temp.addVertex( ofPoint(0,height) );
+    temp.addVertex( ofPoint(0,height_) );
     temp.addTexCoord( ofPoint(0,1) );
-    temp.addVertex( ofPoint(width,height) );
+    temp.addVertex( ofPoint(width_,height_) );
     temp.addTexCoord( ofPoint(1,1) );
     ofPushMatrix();
     
