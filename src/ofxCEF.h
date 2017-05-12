@@ -37,6 +37,9 @@ public:
     ofxCEF();
     ~ofxCEF();
     
+    ofxCEF(const ofxCEF& other) = delete;
+    ofxCEF & operator=(const ofxCEF&) = delete;
+    
 	void exit();
 
     void load(const char*);
