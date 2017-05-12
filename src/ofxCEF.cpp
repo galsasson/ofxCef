@@ -178,7 +178,7 @@ void ofxCEF::load(const char* url){
 }
 
 //--------------------------------------------------------------
-void ofxCEF::update(){
+void updateCEF(){
     GLint swapbytes, lsbfirst, rowlength, skiprows, skippixels, alignment;
     /* Save current pixel store state. */
     

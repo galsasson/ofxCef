@@ -28,6 +28,7 @@ public:
 class ofxCEF;
 
 void initofxCEF(int argc, char** argv);
+void updateCEF();
 
 //--------------------------------------------------------------
 class ofxCEF
@@ -43,7 +44,7 @@ public:
     void draw(void);
     void reshape(int, int);
     
-    void setup();
+    void setup(const string& url = "", int width = 0, int height = 0);
     
     void mouseWheel(int, int);
     
